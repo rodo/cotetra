@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="span3">{% trans "Name" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for line in object_list %}
+    <tr>
+      <td>
+        <a href="{{line.id}}/">{{line.name}}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

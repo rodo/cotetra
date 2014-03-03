@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+<div class="page-header">Stations</div>
+<div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="span3">{% trans "Name" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for station in object_list %}
+    <tr>
+      <td>
+        <a href="{{station.id}}/">{{station.name}}</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
