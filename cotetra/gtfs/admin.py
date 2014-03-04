@@ -16,30 +16,17 @@
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from django.contrib import admin
-from cotetra.network.models import Line, Station, Stop
-
-
-class LineAdmin(admin.ModelAdmin):
-    """Custom Admin for Line
-    """
-    list_display = ('name', 'ref')
-    list_filter = ('operator',)
-
-
-class StationAdmin(admin.ModelAdmin):
-    """Custom Admin for Station
-    """
-    list_display = ('name', 'station', 'railway')
-    list_filter = ('station',)
+from cotetra.gtfs.models import Stop, Trip, Route, Transfer
 
 
 class StopAdmin(admin.ModelAdmin):
     """Custom Admin for Stop
     """
-    list_display = ('line', 'station')
-    list_filter = ('line', 'station')
+    list_display = ('name','pk','description')
 
-
-admin.site.register(Line, LineAdmin)
 admin.site.register(Stop, StopAdmin)
-admin.site.register(Station, StationAdmin)
+admin.site.register(StopTime)
+admin.site.register(Trip)
+admin.site.register(Route)
+admin.site.register(Transfer)
+

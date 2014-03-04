@@ -22,19 +22,28 @@ from django.conf import settings
 from django.db import models
 from cotetra.network.models import Station
 
-class Survey(models.Model):
+
+class Journey(models.Model):
     """
-    A survey
+    A Journey
     """
-    station_from = models.ForeignKey(Station, related_name="from")
-    station_to = models.ForeignKey(Station, related_name="to")
+    station_from = models.ForeignKey(Station, related_name="jfrom")
+    station_to = models.ForeignKey(Station, related_name="jto")
+    duration = models.TimeField()
 
-    time = models.TimeField()
+    def __unicode__(self):
+        """The unicode method
+        """
+        return u"{} - {}".format(self.station_from, self.station_to)
 
-    travel = models.IntegerField(default=0,
-                                 choices=((0, 'journey'),
-                                          (1, 'connection')))
 
+class Connection(models.Model):
+    """
+    A Connection
+    """
+    station_from = models.ForeignKey(Station, related_name="cfrom")
+    station_to = models.ForeignKey(Station, related_name="cto")
+    duration = models.TimeField()
 
     def __unicode__(self):
         """The unicode method

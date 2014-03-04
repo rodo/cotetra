@@ -1,23 +1,30 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<div class="page-header">Stations</div>
-<div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="span3">{% trans "Name" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for station in object_list %}
-    <tr>
-      <td>
-        <a href="{{station.id}}/">{{station.name}}</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="page-header">Station : {{object.name}}</div>
+<div class="row">
+  <div class="col-md-4">
+    {{object.tags}}
+    <div>
+      <a href="/api/v1/station/{{station.id}}/?format=json">json</a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div>Lignes</div>
+    <div>
+      <ul>
+	{% for stop in object.stops %}  
+	<li>
+	  <span class="badge" style="background-color: {{stop.line.colour}}">{{stop.line.ref}}</span>
+	  <a href="{% url line_detail stop.line.id %}">{{stop.line.name}}</a></li>
+	{% endfor %}
+      </ul>
+      
+    </div>
+    
+
+  </div>
+
 </div>
 {% endblock %}

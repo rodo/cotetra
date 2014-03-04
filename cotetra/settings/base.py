@@ -45,7 +45,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -71,7 +71,7 @@ PROJECT_DIR = os.path.dirname(__file__) # this is not Django setting.
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, "..", "cotetra", "static"),
+    os.path.join(PROJECT_DIR, "..", "static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,7 +108,7 @@ ROOT_URLCONF = 'cotetra.urls'
 WSGI_APPLICATION = 'cotetra.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, "..", "cotetra", "templates"),
+    os.path.join(PROJECT_DIR, "..", "templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -122,9 +122,22 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.gis',
+    'tastypie',
     'cotetra.network',
     'cotetra.survey',
+    'cotetra.gtfs',
 )
+
+#
+#
+#
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'TIMEOUT': 60
+    }
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

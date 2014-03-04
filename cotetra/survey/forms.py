@@ -15,31 +15,23 @@
 #     You should have received a copy of the GNU General Public License
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-from django.contrib import admin
-from cotetra.network.models import Line, Station, Stop
+#
+from django import forms
+from django.forms.widgets import Textarea, Select, TextInput
+from cotetra.survey.models import Journey, Connection
 
 
-class LineAdmin(admin.ModelAdmin):
-    """Custom Admin for Line
+class JourneyForm(forms.ModelForm):
     """
-    list_display = ('name', 'ref')
-    list_filter = ('operator',)
-
-
-class StationAdmin(admin.ModelAdmin):
-    """Custom Admin for Station
+    Use to create a new journey
     """
-    list_display = ('name', 'station', 'railway')
-    list_filter = ('station',)
+    class Meta:
+        model = Journey
 
 
-class StopAdmin(admin.ModelAdmin):
-    """Custom Admin for Stop
+class ConnectionForm(forms.ModelForm):
     """
-    list_display = ('line', 'station')
-    list_filter = ('line', 'station')
-
-
-admin.site.register(Line, LineAdmin)
-admin.site.register(Stop, StopAdmin)
-admin.site.register(Station, StationAdmin)
+    Use to create a new connection
+    """
+    class Meta:
+        model = Connection

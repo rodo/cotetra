@@ -16,15 +16,23 @@
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 from django.contrib import admin
-from cotetra.survey.models import Survey
+from cotetra.survey.models import Journey, Connection
 
 
-class SurveyAdmin(admin.ModelAdmin):
-    """Custom Admin for Survey
+class JourneyAdmin(admin.ModelAdmin):
+    """Custom Admin for Journey
     """
-    list_display = ('station_from', 'station_to', 'travel')
+    list_display = ('station_from', 'station_to')
     list_filter = ('station_from', 'station_to')
 
 
-admin.site.register(Survey, SurveyAdmin)
+class ConnectionAdmin(admin.ModelAdmin):
+    """Custom Admin for Connection
+    """
+    list_display = ('station_from', 'station_to')
+    list_filter = ('station_from', 'station_to')
+
+
+admin.site.register(Journey, JourneyAdmin)
+admin.site.register(Connection, ConnectionAdmin)
 

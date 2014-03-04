@@ -20,7 +20,7 @@ Models definition for resume
 """
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class Line(models.Model):
@@ -44,7 +44,7 @@ class Line(models.Model):
     line = models.CharField(max_length=30,
                             verbose_name='Line')
 
-    colour = models.CharField(max_length=10, 
+    colour = models.CharField(max_length=10,
                               editable='False',
                               blank=True,
                               null=True)
@@ -53,13 +53,14 @@ class Line(models.Model):
 
     tags = models.CharField(max_length=3000,
                             verbose_name='Tags')
-    
-
 
     def __unicode__(self):
         """The unicode method
         """
         return u'%s' % (self.name)
+
+    def get_absolute_url(self):
+        return reverse('line_detail', args=[str(self.id)])
 
 
 class Station(models.Model):
@@ -73,14 +74,35 @@ class Station(models.Model):
 
     railway = models.CharField(max_length=300)
 
-    line = models.ManyToManyField(Line)
-
     osmid = models.IntegerField()
 
     tags = models.CharField(max_length=3000,
                             verbose_name='Tags')
 
+    lon = models.FloatField(default=0)
+    lat = models.FloatField(default=0)
+
+    def stops(self):
+        return Stop.objects.filter(station=self)
+
     def __unicode__(self):
         """The unicode method
         """
         return u'%s' % (self.name)
+
+    def get_absolute_url(self):
+        return reverse('station_detail', args=[str(self.id)])
+
+
+class Stop(models.Model):
+    """
+    Stop
+    """
+    station = models.ForeignKey(Station)
+    line = models.ForeignKey(Line)
+    order = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        """The unicode method
+        """
+        return u'%s %s' % (self.station.name, self.line.name)
